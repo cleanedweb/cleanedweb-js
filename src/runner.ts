@@ -98,7 +98,8 @@ export interface AcceptOptions {
 
 /**
  * The review checks the docs ask for before downstream use: `summary.status` is `completed` or
- * `bounded`, and `summary.within_scope_passed` is true. HTTP 200 alone does not make a result usable.
+ * `bounded`, `summary.within_scope_passed` is true, and the run finished (an aborted run is never
+ * usable). HTTP 200 alone does not make a result usable.
  */
 export function acceptanceProblems(result: RunResultBody<unknown>, options: AcceptOptions = {}): string[] {
   const problems: string[] = [];
@@ -108,6 +109,10 @@ export function acceptanceProblems(result: RunResultBody<unknown>, options: Acce
     problems.push(`summary.status is "${String(summary.status)}", not completed or bounded`);
   }
   if (summary.within_scope_passed !== true) problems.push('summary.within_scope_passed is not true');
+  const runStatus = (result.run as { status?: unknown } | undefined)?.status;
+  if (runStatus !== undefined && runStatus !== 'finished') {
+    problems.push(`run.status is "${String(runStatus)}", not finished`);
+  }
   if (options.definitionVersion !== undefined && summary.definition_version !== options.definitionVersion) {
     problems.push('summary.definition_version does not match the contract');
   }

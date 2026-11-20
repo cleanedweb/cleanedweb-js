@@ -363,4 +363,12 @@ describe('acceptance helpers', () => {
     short.summary.records = 3;
     expect(isAccepted(short)).toBe(false);
   });
+
+  it('flags an aborted run even when its summary reads bounded', () => {
+    const aborted = finishedBody();
+    aborted.summary.status = 'bounded';
+    aborted.run = { ...aborted.run, status: 'aborted', stop_reason: 'aborted' };
+    expect(isAccepted(aborted)).toBe(false);
+    expect(() => assertAccepted(aborted)).toThrow(/run.status is "aborted"/);
+  });
 });

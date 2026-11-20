@@ -7,7 +7,7 @@ export type { AcceptOptions };
 
 /**
  * Whether a finished run passes the documented acceptance checks: `summary.status` is `completed`
- * or `bounded` and `summary.within_scope_passed` is true (and, with `definitionVersion`, the
+ * or `bounded`, `summary.within_scope_passed` is true, the run finished (and, with `definitionVersion`, the
  * summary names that version). `bounded` and `partial` mean the source can hold more records.
  */
 export function isAccepted(result: RunResultBody<unknown>, options?: AcceptOptions): boolean {
