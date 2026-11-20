@@ -10,7 +10,7 @@ runs that outlive one request, recovery after a lost response, and typed errors.
 - ESM and CommonJS builds, with TypeScript types. Records are generic: `run<MyRecord>()`.
 - Keep the API key on the server. Never bundle it into browser code.
 
-> **Status:** pre-release, not yet published to npm. This repository is private until it has been reviewed.
+> **Status:** pre-release, not yet published to npm.
 
 **Pricing:** 5,000 records free once. Then prepaid credit from $1 per 1,000 records, no subscription.
 Runs are charged per record delivered.

@@ -11,7 +11,6 @@
 #     Environment: npm. Then set "Require two-factor authentication and disallow tokens".
 #
 # npm records provenance only for packages built from a public repository.
-# This repository is private: make it public before the first run, or the publish fails.
 #
 # Bump the version and its CHANGELOG entry on main before starting a run: npm refuses to
 # replace a version it already has.
