@@ -14,7 +14,7 @@ export type Responder = (call: RecordedCall) => Response | Promise<Response> | E
 export const API_KEY = 'cw_test_key_0123456789';
 export const API_ID = 'generated_047a8ebb25911ccf62f4a212';
 export const ENDPOINT_ID = `${API_ID}_search`;
-export const RUN_ROOT = `https://broker.cleanedweb.com/v1/catalog/public/apis/${API_ID}/endpoints/${ENDPOINT_ID}`;
+export const RUN_ROOT = `https://api.cleanedweb.com/v1/catalog/public/apis/${API_ID}/endpoints/${ENDPOINT_ID}`;
 export const RUN_ID = 'a'.repeat(32);
 
 export function json(status: number, body: unknown, headers: Record<string, string> = {}): Response {

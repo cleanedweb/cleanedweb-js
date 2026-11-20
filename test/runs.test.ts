@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CleanedWebAbortError, NotFoundError, RunFailedError } from '../src/index.js';
 import { RUN_ID, finishedBody, json, runningBody, setup } from './helpers.js';
 
-const BASE = 'https://broker.cleanedweb.com';
+const BASE = 'https://api.cleanedweb.com';
 
 const page = (items: unknown[], next: number | null, status = 'running') => ({
   run_id: RUN_ID,

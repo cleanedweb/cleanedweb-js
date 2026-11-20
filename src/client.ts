@@ -8,7 +8,7 @@ import { defaultSleep } from './util.js';
 import type { Sleep } from './util.js';
 
 /** The run origin: runs, results and the generic run routes. */
-export const DEFAULT_BASE_URL = 'https://broker.cleanedweb.com';
+export const DEFAULT_BASE_URL = 'https://api.cleanedweb.com';
 /** The live catalog (anonymous reads). */
 export const DEFAULT_CATALOG_URL = 'https://app.cleanedweb.com';
 /** The public site (catalog index). */
@@ -21,7 +21,7 @@ export interface CleanedWebOptions {
    */
   apiKey?: string | undefined;
   /**
-   * The run origin, without a path (default `https://broker.cleanedweb.com`). For a private source
+   * The run origin, without a path (default `https://api.cleanedweb.com`). For a private source
    * API, use the origin from its connection details. The API key is sent only to this origin.
    */
   baseUrl?: string;

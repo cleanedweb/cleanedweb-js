@@ -195,7 +195,7 @@ export class HttpClient {
       const res = await config.fetch(url, init);
       if ((res.status >= 300 && res.status < 400) || res.type === 'opaqueredirect') {
         throw new ConfigurationError(
-          `The server redirected (HTTP ${res.status}) instead of answering. Nothing ran. Check baseUrl: runs are served by https://broker.cleanedweb.com.`,
+          `The server redirected (HTTP ${res.status}) instead of answering. Nothing ran. Check baseUrl: runs are served by https://api.cleanedweb.com.`,
         );
       }
       const text = await res.text();

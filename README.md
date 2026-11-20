@@ -157,7 +157,7 @@ See [catalog versions](https://cleanedweb.com/docs/catalog-versions/?utm_source=
 
 | Call | What it does |
 | --- | --- |
-| `new CleanedWeb({ apiKey, baseUrl, ... })` | `apiKey` defaults to `process.env.CLEANEDWEB_API_KEY`. `baseUrl` is the run origin, default `https://broker.cleanedweb.com`. |
+| `new CleanedWeb({ apiKey, baseUrl, ... })` | `apiKey` defaults to `process.env.CLEANEDWEB_API_KEY`. `baseUrl` is the run origin, default `https://api.cleanedweb.com`. |
 | `catalog.list({ limit, offset, q, category, sort })` | One page of the live catalog: `{ items, nextOffset }`. No key needed. |
 | `catalog.iterate({ q, category, sort })` | Async iterator over every published API. |
 | `catalog.get(apiIdOrSlug)` | One API with its endpoints and `active_version`. A slug is resolved through the catalog index. |

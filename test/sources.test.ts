@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { VersionConflictError } from '../src/index.js';
 import { RUN_ID, finishedBody, json, runningBody, setup } from './helpers.js';
 
-const BASE = 'https://broker.cleanedweb.com';
+const BASE = 'https://api.cleanedweb.com';
 const VERSION = 'f'.repeat(64);
 
 describe('sources', () => {

@@ -179,7 +179,7 @@ describe('catalog.run', () => {
   it('encodes path segments', async () => {
     const { cw, calls } = setup([() => json(200, finishedBody())]);
     await cw.catalog.run('a b', 'c/d');
-    expect(calls[0]!.url).toBe('https://broker.cleanedweb.com/v1/catalog/public/apis/a%20b/endpoints/c%2Fd/run');
+    expect(calls[0]!.url).toBe('https://api.cleanedweb.com/v1/catalog/public/apis/a%20b/endpoints/c%2Fd/run');
   });
 });
 
