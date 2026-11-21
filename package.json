@@ -1,6 +1,6 @@
 {
   "name": "cleanedweb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript and TypeScript SDK for CleanedWeb: run maintained REST APIs that return structured records from public website collections.",
   "keywords": ["cleanedweb", "web data", "scraping", "api", "structured data", "sdk", "records"],
   "homepage": "https://cleanedweb.com/?utm_source=github&utm_medium=cleanedweb-js",
