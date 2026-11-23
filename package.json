@@ -1,8 +1,8 @@
 {
   "name": "cleanedweb",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "JavaScript and TypeScript SDK for CleanedWeb: run maintained REST APIs that return structured records from public website collections.",
-  "keywords": ["cleanedweb", "web data", "scraping", "api", "structured data", "sdk", "records"],
+  "keywords": ["cleanedweb", "web data", "scraping", "api", "structured data", "sdk", "records", "ai-sdk", "vercel-ai-sdk", "ai", "tools", "agents"],
   "homepage": "https://cleanedweb.com/?utm_source=github&utm_medium=cleanedweb-js",
   "repository": {
     "type": "git",
@@ -29,6 +29,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./ai-sdk": {
+      "import": {
+        "types": "./dist/ai-sdk.d.ts",
+        "default": "./dist/ai-sdk.js"
+      },
+      "require": {
+        "types": "./dist/ai-sdk.d.cts",
+        "default": "./dist/ai-sdk.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "files": ["dist", "README.md", "LICENSE", "CHANGELOG.md"],
@@ -48,9 +58,23 @@
     "test:dist": "node scripts/check-dist.mjs",
     "prepublishOnly": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:dist"
   },
+  "typesVersions": {
+    "*": {
+      "ai-sdk": ["./dist/ai-sdk.d.ts"]
+    }
+  },
+  "peerDependencies": {
+    "ai": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ai": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
     "@types/node": "^18.19.0",
+    "ai": "^7.0.179",
     "eslint": "^9.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.6.0",

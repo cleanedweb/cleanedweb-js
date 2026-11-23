@@ -206,6 +206,34 @@ retried. Set `maxRetries: 0` to turn retries off. Errors never contain the API k
 - [Errors and retries](https://cleanedweb.com/docs/errors/?utm_source=github&utm_medium=cleanedweb-js)
 - [Browse the catalog](https://cleanedweb.com/catalog/?utm_source=github&utm_medium=cleanedweb-js)
 
+## Vercel AI SDK tools
+
+`cleanedweb/ai-sdk` gives an [AI SDK](https://ai-sdk.dev/) agent three tools: `findApi` searches
+the catalog, `getApi` shows an API's inputs, output fields and saved sample records, and `runApi`
+runs it and returns the records. Finding and reading need no key; `runApi` reads
+`CLEANEDWEB_API_KEY` and is charged per record. Install `ai` (AI SDK 5 or later) next to this package.
+
+```bash
+npm install cleanedweb ai @ai-sdk/openai
+```
+
+```ts
+import { generateText, isStepCount } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { cleanedwebTools } from 'cleanedweb/ai-sdk';
+
+const { text } = await generateText({
+  model: openai('gpt-5-mini'),
+  prompt: 'Find five GitHub repositories under the "web-scraping" topic and list their names and URLs.',
+  tools: cleanedwebTools(),
+  stopWhen: isStepCount(8),
+});
+```
+
+`cleanedwebTools({ maxItems, timeoutSeconds, apiKey, client })` sets the records a run keeps when the
+model does not say (default 20) and the run's time budget; each tool is also exported on its own.
+Guide: [AI SDK](https://cleanedweb.com/docs/ai-sdk/?utm_source=github&utm_medium=cleanedweb-js).
+
 ## MCP alternative
 
 To search the catalog and run APIs from an AI agent (Claude, Claude Code, ChatGPT, Cursor, Codex and others)

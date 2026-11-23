@@ -6,6 +6,16 @@ All notable changes to this package are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-23
+
+### Added
+
+- `cleanedweb/ai-sdk`: Vercel AI SDK tools `findApi`, `getApi` and `runApi`, and `cleanedwebTools()`
+  for all three. `findApi` ranks catalog APIs by topic words and wanted fields; `getApi` returns
+  inputs, output fields and saved sample records; `runApi` runs an endpoint (default 20 records) and
+  reports whether the result passes the acceptance checks. Works with AI SDK 5, 6 and 7; `ai` is an
+  optional peer dependency, so the core SDK keeps zero runtime dependencies.
+
 ## [0.1.1] - 2026-11-21
 
 ### Changed
