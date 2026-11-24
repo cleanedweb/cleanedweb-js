@@ -30,24 +30,51 @@ const PAGE_SIZE = 100;
 const DEFAULT_WAIT_SECONDS = 90;
 const REQUEST_HEADROOM_MS = 30_000;
 
-/** Normalizes `https://www.GitHub.com/topics` to `github.com`. */
+/**
+ * Normalizes `https://www.GitHub.com./topics` to `github.com`; a bare name stays a lowercase name.
+ * Drops the scheme, credentials, port, path, query, fragment, a leading `www.` and a trailing dot.
+ */
 function normalizeDomain(value: string): string {
   let host = value.trim().toLowerCase();
   host = host.replace(/^[a-z][a-z0-9+.-]*:\/\//, '');
   host = host.split(/[/?#]/)[0] ?? '';
-  host = host.replace(/:\d+$/, '').replace(/^www\./, '');
-  return host;
+  host = (host.split('@').pop() ?? '').split(':')[0] ?? '';
+  host = host.replace(/^\.+|\.+$/g, '');
+  return host.startsWith('www.') ? host.slice(4) : host;
 }
 
+/** `host` is `wanted` or a subdomain of it, or the other way round (a page of the site). */
+function sameSiteHost(wanted: string, host: string): boolean {
+  return wanted === host || host.endsWith(`.${wanted}`) || wanted.endsWith(`.${host}`);
+}
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** `wanted` appears in a free-text name delimited as a host, so `seek.com.au` is not in `notseek.com.au`. */
+function namesHost(wanted: string, text: string): boolean {
+  return new RegExp(`(?<![a-z0-9.-])${escapeRegExp(wanted)}(?![a-z0-9-])`).test(text);
+}
+
+/**
+ * Does `api` belong to `site` (a domain, a full URL, a name or a part of one)? A host-shaped `site`
+ * (it has a dot) matches the API's domain and every `site.aliases` host on label boundaries: equal,
+ * or one a subdomain of the other. Names match a host-shaped `site` only on host boundaries. A name
+ * without a dot (`github`) is a substring of a host, the site name or the API name.
+ */
 function matchesSite(api: CatalogApi, site: string): boolean {
   const wanted = normalizeDomain(site);
   if (wanted === '') return true;
-  const domain = normalizeDomain(api.site?.domain ?? '');
-  if (wanted.includes('.')) {
-    return domain === wanted || domain.endsWith(`.${wanted}`) || wanted.endsWith(`.${domain}`);
+  const aliases = Array.isArray(api.site?.aliases) ? api.site.aliases : [];
+  const hosts = [api.site?.domain, ...aliases]
+    .map((h) => (typeof h === 'string' ? normalizeDomain(h) : ''))
+    .filter((h) => h !== '');
+  const names = [(api.site?.name ?? '').toLowerCase(), api.name.toLowerCase()].filter((t) => t !== '');
+  if (wanted.includes('.') && !/\s/.test(wanted)) {
+    return hosts.some((h) => sameSiteHost(wanted, h)) || names.some((t) => namesHost(wanted, t));
   }
-  const name = (api.site?.name ?? '').toLowerCase();
-  return domain.includes(wanted) || name.includes(wanted) || api.name.toLowerCase().includes(wanted);
+  return [...hosts, ...names].some((t) => t.includes(wanted));
 }
 
 function normalizeField(field: string): string {

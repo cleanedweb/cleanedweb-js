@@ -6,6 +6,13 @@ All notable changes to this package are recorded here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- `catalog.find({ site })` matches the catalog site's new optional `aliases` hosts as well as its
+  `domain`, so `seek.com.au` finds an API whose domain is `au.seek.com`. A dotted `site` matches on
+  host boundaries only (never `notseek.com.au`); a name without a dot still matches by substring.
+  `CatalogSite` gains `aliases?: string[] | null`.
+
 ## [0.2.0] - 2026-11-23
 
 ### Added

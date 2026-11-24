@@ -32,6 +32,8 @@ const liveList = [
   api(API_ID, 'GitHub Topics Repositories', 'github.com'),
   api('generated_w', 'Worten Computadores Portateis', 'www.worten.pt'),
   api('generated_x', 'Other', 'shop.example.com'),
+  api('generated_seek', 'Seek Python Jobs', 'au.seek.com', { site: { name: 'Seek', domain: 'au.seek.com', aliases: ['www.seek.com.au'] } }),
+  api('generated_notseek', 'Notseek Listings', 'notseek.com.au', { site: { name: 'Notseek', domain: 'notseek.com.au', aliases: null } }),
 ];
 
 /** Answers by URL, whatever the order of the requests. */
@@ -47,7 +49,7 @@ describe('catalog reads', () => {
     const page = await cw.catalog.list({ limit: 20, offset: 40, q: 'shoes', category: 'commerce', sort: 'name' });
     expect(calls[0]!.url).toBe(`${LIVE}/api/catalog/apis?limit=20&offset=40&q=shoes&category=commerce&sort=name`);
     expect(calls[0]!.headers.authorization).toBeUndefined();
-    expect(page.items).toHaveLength(3);
+    expect(page.items).toHaveLength(5);
     expect(page.nextOffset).toBeNull();
   });
 
@@ -114,6 +116,16 @@ describe('catalog reads', () => {
     expect((await mk().cw.catalog.find({ site: 'example.com' })).map((m) => m.api_id)).toEqual(['generated_x']);
     expect((await mk().cw.catalog.find({ site: 'worten' })).map((m) => m.api_id)).toEqual(['generated_w']);
     expect(await mk().cw.catalog.find({ site: 'nothing.example.org' })).toEqual([]);
+  });
+
+  it('find matches a site by its alias hosts, on host boundaries', async () => {
+    const ids = async (site: string) => (await setup(router({})).cw.catalog.find({ site })).map((m) => m.api_id);
+    for (const site of ['seek.com.au', 'www.seek.com.au', 'https://www.seek.com.au/jobs', 'HTTPS://WWW.SEEK.COM.AU./jobs?q=1', 'au.seek.com', 'seek.com']) {
+      expect(await ids(site)).toEqual(['generated_seek']);
+    }
+    expect(await ids('notseek.com.au')).toEqual(['generated_notseek']);
+    expect(await ids('seek.com.au.evil.example')).toEqual([]);
+    expect(await ids('seek')).toEqual(['generated_seek', 'generated_notseek']);
   });
 
   it('find filters by fields against the index key_fields and joins the listing details', async () => {

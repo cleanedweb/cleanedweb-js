@@ -255,6 +255,8 @@ export interface CatalogEndpoint {
 export interface CatalogSite {
   name: string;
   domain: string;
+  /** Other hosts of the site, lowercase, `www.` kept, the domain never repeated. Missing or null on older servers. */
+  aliases?: string[] | null;
   description?: string;
   icon_url?: string | null;
 }
