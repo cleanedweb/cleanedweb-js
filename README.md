@@ -1,4 +1,8 @@
+<p align="center"><img src="https://cleanedweb.com/assets/logo.png" width="72" alt="CleanedWeb"></p>
+
 # cleanedweb
+
+[![npm](https://img.shields.io/npm/v/cleanedweb)](https://www.npmjs.com/package/cleanedweb) [![TypeScript](https://img.shields.io/badge/types-TypeScript-3178c6)](https://www.npmjs.com/package/cleanedweb) [![CI](https://github.com/cleanedweb/cleanedweb-js/actions/workflows/ci.yml/badge.svg)](https://github.com/cleanedweb/cleanedweb-js/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/cleanedweb/cleanedweb-js/blob/main/LICENSE)
 
 JavaScript and TypeScript SDK for [CleanedWeb](https://cleanedweb.com/?utm_source=github&utm_medium=cleanedweb-js).
 CleanedWeb turns public website collections (listings, products, jobs, articles, profiles) into
