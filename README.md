@@ -4,14 +4,20 @@
 
 [![npm](https://img.shields.io/npm/v/cleanedweb)](https://www.npmjs.com/package/cleanedweb) [![TypeScript](https://img.shields.io/badge/types-TypeScript-3178c6)](https://www.npmjs.com/package/cleanedweb) [![CI](https://github.com/cleanedweb/cleanedweb-js/actions/workflows/ci.yml/badge.svg)](https://github.com/cleanedweb/cleanedweb-js/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/cleanedweb/cleanedweb-js/blob/main/LICENSE)
 
-JavaScript and TypeScript SDK for [CleanedWeb](https://cleanedweb.com/?utm_source=github&utm_medium=cleanedweb-js).
-CleanedWeb turns public website collections (listings, products, jobs, articles, profiles) into
-maintained REST APIs that return structured records. This package finds those APIs in the public
-catalog, runs them, and handles the parts that are easy to get wrong: the required idempotency key,
-runs that outlive one request, recovery after a lost response, and typed errors.
+<p align="center"><img src="https://raw.githubusercontent.com/cleanedweb/cleanedweb-js/main/docs/demo.gif" width="760" alt="Terminal: a short script finds the Steam Most Played Games API and prints five live records"></p>
+<p align="center"><sub>A live run: the five most played Steam games right now, as five records.</sub></p>
 
+**Scrapers break whenever a site changes its pages.** CleanedWeb is a catalog of maintained REST APIs
+for public websites (listings, products, jobs, articles, profiles): you call an API and get structured
+records with known fields. When a site changes, CleanedWeb rebuilds its API.
+This is the JavaScript and TypeScript SDK for [CleanedWeb](https://cleanedweb.com/?utm_source=github&utm_medium=cleanedweb-js).
+
+- Find an API for a site in the public catalog, read its contract, run it: `find`, `contract`, `run`.
+- Typed records: `run<MyRecord>()`, with each API's input and output JSON Schema.
+- Handles the parts that are easy to get wrong: the idempotency key, runs that outlive one request,
+  recovery after a lost response, and typed errors.
 - Zero runtime dependencies. Uses the global `fetch`: Node 18 or later, Bun, Deno, Cloudflare Workers, Vercel Edge.
-- ESM and CommonJS builds, with TypeScript types. Records are generic: `run<MyRecord>()`.
+- ESM and CommonJS builds. [Vercel AI SDK tools](#vercel-ai-sdk-tools) at `cleanedweb/ai-sdk`.
 - Keep the API key on the server. Never bundle it into browser code.
 
 **Pricing:** 5,000 records free once. Then prepaid credit from $1 per 1,000 records, no subscription.
